@@ -16,7 +16,7 @@ It is a **real system**, designed using **industry-grade architecture patterns**
 ---
 
 ## ✨ Key Highlights
-
+```
 ✔ Automated Exploratory Data Analysis (EDA)
 ✔ Interactive, responsive analytics dashboard
 ✔ ML model training + real-time prediction
@@ -25,7 +25,7 @@ It is a **real system**, designed using **industry-grade architecture patterns**
 ✔ Error-safe UX & API design
 ✔ Clean microservice architecture
 ✔ Cloud-ready deployment setup
-
+```
 ---
 
 ## 🏗️ High-Level Architecture
