@@ -11,7 +11,7 @@ import mlRoutes from "./routes/ml.routes.js";
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5000",
+  origin: "https://insightflowai.vercel.app",
   credentials: true
 }));
 
