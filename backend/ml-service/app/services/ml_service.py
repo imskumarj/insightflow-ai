@@ -28,9 +28,12 @@ def train_sales_model(df: pd.DataFrame):
 
     preds = model.predict(X_test)
 
+    mse = mean_squared_error(y_test, preds)
+    rmse = mse ** 0.5
+
     metrics = {
         "r2": round(r2_score(y_test, preds), 3),
-        "rmse": round(mean_squared_error(y_test, preds, squared=False), 2),
+        "rmse": round(float(rmse), 2),
     }
 
     # 🔥 SAVE MODEL
