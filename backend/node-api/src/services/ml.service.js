@@ -8,8 +8,8 @@ export const ingestDataset = (formData, headers) =>
 export const getEDA = (datasetId) =>
   axios.get(`${ML_BASE}/eda/${datasetId}`);
 
-export const trainModel = (datasetId) =>
-  axios.post(`${ML_BASE}/train/${datasetId}`);
+export const trainModel = (payload) =>
+  axios.post(`${ML_BASE}/train`, payload);
 
 export const predictSales = (payload) =>
   axios.post(`${ML_BASE}/predict`, payload);

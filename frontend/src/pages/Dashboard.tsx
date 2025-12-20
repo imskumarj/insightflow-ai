@@ -18,10 +18,6 @@ export default function Dashboard() {
   // 👇 trigger prediction only when EDA exists
   const { result: prediction, loading: predicting } = usePredict(datasetId, !!data);
 
-  useEffect(() => {
-    localStorage.removeItem("datasetId");
-  }, []);
-
   return (
     <div className="max-w-7xl mx-auto px-6 py-10 space-y-12">
       
@@ -133,11 +129,10 @@ export default function Dashboard() {
               </p>
 
               <p className="text-sm text-slate-300">
-                R² Score: <span className="font-medium">{prediction.metrics?.r2}</span>
-              </p>
-
-              <p className="text-sm text-slate-300">
-                RMSE: <span className="font-medium">{prediction.metrics?.rmse}</span>
+                Predicted Sales:{" "}
+                <span className="font-medium">
+                  ₹{prediction.predicted_sales}
+                </span>
               </p>
             </div>
           )}

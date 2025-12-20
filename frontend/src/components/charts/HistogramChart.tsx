@@ -5,7 +5,8 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip
+  Tooltip,
+  CartesianGrid,
 } from "recharts";
 
 interface HistogramProps {
@@ -32,8 +33,9 @@ export default function HistogramChart({
 
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={data}>
-          <XAxis dataKey="range" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+          <XAxis tick={{ fill: "#cbd5f5", fontSize: 11 }} />
+          <YAxis tick={{ fill: "#cbd5f5", fontSize: 11 }} />
           <Tooltip />
           <Bar
             dataKey="value"
