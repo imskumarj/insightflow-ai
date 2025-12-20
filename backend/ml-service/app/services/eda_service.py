@@ -107,6 +107,28 @@ def generate_eda(df: pd.DataFrame):
         top = max(category_chart, key=lambda x: x["sales"])
         insights.append(f"{top['category']} is the highest revenue category.")
 
+    # 🔹 Discount risk
+    if "discount" in df and "profit" in df:
+        risky = df[(df["discount"] > 0.3) & (df["profit"] < 0)]
+        if len(risky) > 0:
+            insights.append(
+                "High discounts above 30% are frequently associated with losses."
+            )
+
+    # 🔹 Quantity-profit signal
+    if "quantity" in df and "profit" in df:
+        corr = df["quantity"].corr(df["profit"])
+        if corr < -0.3:
+            insights.append(
+                "Higher quantities may be reducing profit margins — review bulk pricing strategy."
+            )
+
+    # 🔹 Actionable recommendation
+    if summary["avgDiscount"] > 0.25:
+        insights.append(
+            "Consider tightening discount policies or introducing approval thresholds."
+        ) 
+
     return {
         "summary": summary,
         "histograms": histograms,

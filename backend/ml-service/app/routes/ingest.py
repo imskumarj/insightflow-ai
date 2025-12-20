@@ -9,7 +9,9 @@ DATASETS = {}
 async def ingest(file: UploadFile):
     df = pd.read_csv(file.file)
 
-    # 🔹 Normalize column names
+    if df.empty:
+        return {"error": "Uploaded CSV is empty"}
+
     df.columns = (
         df.columns
         .str.strip()
@@ -18,7 +20,6 @@ async def ingest(file: UploadFile):
         .str.replace("\ufeff", "")
     )
 
-    # 🔹 Clean numeric columns BEFORE storing
     for col in ["sales", "profit", "discount", "quantity"]:
         if col in df.columns:
             df[col] = (
@@ -31,16 +32,10 @@ async def ingest(file: UploadFile):
             )
             df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    # 🔹 Parse dates ONCE
     if "order_date" in df.columns:
         df["order_date"] = pd.to_datetime(df["order_date"], errors="coerce")
 
     dataset_id = str(uuid.uuid4())
-
-    # print(df.dtypes)
-    # print("INGEST SALES SUM:", df["sales"].sum())
-
-    # 🔥 STORE ONLY CLEAN DATA
     DATASETS[dataset_id] = df
 
     return {

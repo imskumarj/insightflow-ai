@@ -8,15 +8,11 @@ import CorrelationHeatmap from "../components/charts/CorrelationHeatmap";
 import PredictionCard from "../components/charts/PredictionCard";
 import Upload from "./Upload";
 import { useEDA } from "../hooks/useEDA";
-import { usePredict } from "../hooks/usePredict";
 
 export default function Dashboard() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [datasetId, setDatasetId] = useState<string | null>(null);
   const { data, loading } = useEDA(datasetId, refreshKey);
-  
-  // 👇 trigger prediction only when EDA exists
-  const { result: prediction, loading: predicting } = usePredict(datasetId, !!data);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10 space-y-12">
@@ -118,23 +114,8 @@ export default function Dashboard() {
             />
           )}
 
-          {prediction && (
-            <div className="glass rounded-2xl p-6 glow">
-              <h3 className="gradient-text font-semibold mb-4">
-                Model Prediction Results
-              </h3>
-
-              <p className="text-sm text-slate-300">
-                Model: <span className="font-medium">{prediction.model}</span>
-              </p>
-
-              <p className="text-sm text-slate-300">
-                Predicted Sales:{" "}
-                <span className="font-medium">
-                  ₹{prediction.predicted_sales}
-                </span>
-              </p>
-            </div>
+          {datasetId && (
+            <PredictionCard datasetId={datasetId} />
           )}
 
           {/* INSIGHTS */}
